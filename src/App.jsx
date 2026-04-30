@@ -1,0 +1,24 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Discover from './pages/Discover'
+import Matches from './pages/Matches'
+import Profile from './pages/Profile'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/matches" element={<Matches />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
