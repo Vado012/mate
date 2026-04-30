@@ -1,12 +1,18 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Heart, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 
 export default function Login() {
   const [show, setShow] = useState(false)
   const [form, setForm] = useState({ email: '', password: '' })
+  const navigate = useNavigate()
 
   const handle = e => setForm({ ...form, [e.target.name]: e.target.value })
+
+  const submit = e => {
+    e.preventDefault()
+    navigate('/dashboard')
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 flex items-center justify-center px-4">
@@ -19,7 +25,7 @@ export default function Login() {
           <p className="text-gray-500 text-sm mt-1">Sign in to continue your journey</p>
         </div>
 
-        <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+        <form className="space-y-4" onSubmit={submit}>
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
             <input

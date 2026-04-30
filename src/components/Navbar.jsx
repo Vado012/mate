@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Heart, Flame, MessageCircle, User, LogIn, Menu, X, ChevronLeft } from 'lucide-react'
+import { Heart, Flame, MessageCircle, User, LogIn, Menu, X, ChevronLeft, LayoutDashboard } from 'lucide-react'
 
-const links = [
+const publicLinks = [
+  { to: '/discover', icon: <Flame size={20} />, label: 'Discover' },
+  { to: '/matches', icon: <MessageCircle size={20} />, label: 'Matches' },
+  { to: '/profile', icon: <User size={20} />, label: 'Profile' },
+]
+
+const dashboardLinks = [
+  { to: '/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
   { to: '/discover', icon: <Flame size={20} />, label: 'Discover' },
   { to: '/matches', icon: <MessageCircle size={20} />, label: 'Matches' },
   { to: '/profile', icon: <User size={20} />, label: 'Profile' },
 ]
 
 const backLabels = {
-  '/discover': 'Home',
-  '/matches': 'Home',
-  '/profile': 'Home',
+  '/discover': 'Dashboard',
+  '/matches': 'Dashboard',
+  '/profile': 'Dashboard',
   '/login': null,
   '/register': null,
 }
@@ -28,6 +35,8 @@ export default function Navbar() {
   if (isAuth) return null
 
   const isHome = pathname === '/'
+  const isDashboard = pathname.startsWith('/dashboard') || pathname === '/discover' || pathname === '/matches' || pathname === '/profile'
+  const links = isDashboard ? dashboardLinks : publicLinks
   const backLabel = backLabels[pathname]
 
   return (
@@ -67,12 +76,14 @@ export default function Navbar() {
                 {icon} {label}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="ml-2 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border border-pink-300 text-pink-500 hover:bg-pink-500 hover:text-white transition-all"
-            >
-              <LogIn size={16} /> Login
-            </Link>
+            {!isDashboard && (
+              <Link
+                to="/login"
+                className="ml-2 flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border border-pink-300 text-pink-500 hover:bg-pink-500 hover:text-white transition-all"
+              >
+                <LogIn size={16} /> Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile: hamburger */}
@@ -105,12 +116,14 @@ export default function Navbar() {
                 {icon} {label}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium border border-pink-200 text-pink-500 hover:bg-pink-500 hover:text-white transition-all mt-1"
-            >
-              <LogIn size={16} /> Login
-            </Link>
+            {!isDashboard && (
+              <Link
+                to="/login"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium border border-pink-200 text-pink-500 hover:bg-pink-500 hover:text-white transition-all mt-1"
+              >
+                <LogIn size={16} /> Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>

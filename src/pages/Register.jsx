@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Heart, Mail, Lock, User, Eye, EyeOff, Calendar } from 'lucide-react'
 
 export default function Register() {
   const [show, setShow] = useState(false)
   const [step, setStep] = useState(1)
   const [form, setForm] = useState({ name: '', email: '', password: '', dob: '', gender: '', lookingFor: '' })
+  const navigate = useNavigate()
 
   const handle = e => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -27,7 +28,7 @@ export default function Register() {
           ))}
         </div>
 
-        <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+        <form className="space-y-4" onSubmit={e => { e.preventDefault(); navigate('/dashboard') }}>
           {step === 1 ? (
             <>
               <div className="relative">
